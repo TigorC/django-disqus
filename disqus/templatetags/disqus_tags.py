@@ -1,16 +1,15 @@
 import base64
 import hashlib
 import hmac
-import simplejson
+import json
 import time
 
 from django import template
 from django.conf import settings
 from django.contrib.sites.models import Site
-from django.utils.functional import curry
-from django.utils.encoding import force_unicode
 
 register = template.Library()
+
 
 # Set the disqus_developer variable to 0/1. Default is 0
 @register.simple_tag(takes_context=True)
@@ -86,7 +85,7 @@ def disqus_sso(context):
     if user.is_anonymous():
         return ""
     # create a JSON packet of our data attributes
-    data = simplejson.dumps({
+    data = json.dumps({
         'id': user.id,
         'username': user.username,
         'email': user.email,

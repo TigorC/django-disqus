@@ -1,7 +1,7 @@
+import json
 from optparse import make_option
 
 from django.core.management.base import NoArgsCommand, CommandError
-from django.utils import simplejson as json
 
 from disqus.api import DisqusClient
 
@@ -54,4 +54,5 @@ class Command(NoArgsCommand):
             else:
                 start += step
                 posts.append(new_posts)
-        print json.dumps(posts, indent=indent)
+        self.stdout.write(json.dumps(posts, indent=indent))
+        self.stdout.write('\n')
